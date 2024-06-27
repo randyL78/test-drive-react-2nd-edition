@@ -35,6 +35,20 @@ describe('Carousel', () => {
     expect(img).toHaveAttribute('src', slides[0].imgUrl)
   })
 
+  it('contains a next button', () => {
+    render(<Carousel slides={slides}/>)
+    const nextButton = screen.getByTestId('next-button')
+
+    expect(nextButton).toBeInTheDocument()
+  })
+
+  it('does not contain a next button when there are less than 2 slides', () => {
+    render(<Carousel slides={[slides[0]]}/>)
+    const nextButton = screen.queryByTestId('next-button')
+
+    expect(nextButton).not.toBeInTheDocument()
+  })
+
   it('advances the slide when the Next button is clicked', async () => {
     render(<Carousel slides={slides} />)
     const img = screen.getByRole('img')
@@ -54,6 +68,13 @@ describe('Carousel', () => {
     const prevButton = screen.getByTestId('prev-button')
 
     expect(prevButton).toBeInTheDocument()
+  })
+
+  it('does not contain a previous button when there are less than 2 slides', () => {
+    render(<Carousel slides={[slides[0]]}/>)
+    const prevButton = screen.queryByTestId('prev-button')
+
+    expect(prevButton).not.toBeInTheDocument()
   })
 
   it('advances the slide when the Next button is clicked', async () => {

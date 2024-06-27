@@ -16,8 +16,12 @@ const Carousel = ({ slides }: {slides?: Slide[]}) => {
   return (
     <div data-testid="carousel" >
       <CarouselSlide {...slides?.[activeSlide]} />
-      <CarouselButton data-testid={'next-button'} onClick={setNextSlide} value='Next' />
-      <CarouselButton data-testid={'prev-button'} onClick={setPrevSlide} value='Prev' />
+      {(slides?.length || 0) > 1 && (
+        <>
+          <CarouselButton data-testid={'prev-button'} onClick={setPrevSlide} value='Prev' />
+          <CarouselButton data-testid={'next-button'} onClick={setNextSlide} value='Next' />
+        </>
+      )}
     </div>
   )
 }

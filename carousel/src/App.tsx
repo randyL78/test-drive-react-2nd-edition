@@ -1,11 +1,8 @@
 import './App.css'
+import Carousel from "./Carousel.tsx";
 
 function App() {
-  return (
-    <>
-      <h1>Hello world</h1>
-    </>
-  )
+  return <Carousel />
 }
 
 export default App
