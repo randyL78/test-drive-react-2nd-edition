@@ -1,8 +1,8 @@
 import './App.css'
-import Carousel from "./Carousel.tsx";
+import ExampleCarousel from "./examples/ExampleCarousel.tsx";
 
 function App() {
-  return <Carousel />
+  return <ExampleCarousel />
 }
 
 export default App

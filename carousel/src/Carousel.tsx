@@ -18,8 +18,8 @@ const Carousel = ({ slides }: {slides?: Slide[]}) => {
       <CarouselSlide {...slides?.[activeSlide]} />
       {(slides?.length || 0) > 1 && (
         <>
-          <CarouselButton data-testid={'prev-button'} onClick={setPrevSlide} value='Prev' />
-          <CarouselButton data-testid={'next-button'} onClick={setNextSlide} value='Next' />
+          <CarouselButton data-testid={'prev-button'} onClick={setPrevSlide} >Prev</CarouselButton>
+          <CarouselButton data-testid={'next-button'} onClick={setNextSlide} >Next</CarouselButton>
         </>
       )}
     </div>
