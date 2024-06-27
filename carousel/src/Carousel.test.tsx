@@ -77,7 +77,7 @@ describe('Carousel', () => {
     expect(prevButton).not.toBeInTheDocument()
   })
 
-  it('advances the slide when the Next button is clicked', async () => {
+  it('advances the slide when the Prev button is clicked', async () => {
     render(<Carousel slides={slides} />)
     const img = screen.getByRole('img')
     const nextButton = screen.getByTestId('prev-button')
