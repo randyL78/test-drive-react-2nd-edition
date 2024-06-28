@@ -3,11 +3,12 @@ import {ReactNode, useState} from 'react'
 import CarouselButton from './CarouselButton'
 
 export type CarouselProps = {
-  slides: Slide[]
+  slides?: Slide[]
+  DefaultImgComponent?: CarouselSlideProps['ImgComponent']
   defaultImgHeight?: CarouselSlideProps['imgHeight']
 }
 
-const Carousel = ({ slides, defaultImgHeight }: CarouselProps) => {
+const Carousel = ({ slides, DefaultImgComponent, defaultImgHeight }: CarouselProps) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const setNextSlide = () => {
     if (!slides) return
@@ -23,7 +24,11 @@ const Carousel = ({ slides, defaultImgHeight }: CarouselProps) => {
 
   return (
     <div data-testid="carousel" >
-      <CarouselSlide {...slides?.[activeSlide]} imgHeight={defaultImgHeight} />
+      <CarouselSlide
+        ImgComponent={DefaultImgComponent}
+        {...slides?.[activeSlide]}
+        imgHeight={defaultImgHeight}
+      />
       {(slides?.length || 0) > 1 && (
         <>
           <CarouselButton data-testid={'prev-button'} onClick={setPrevSlide} >Prev</CarouselButton>

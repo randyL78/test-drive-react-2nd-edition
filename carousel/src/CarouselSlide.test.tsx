@@ -1,6 +1,7 @@
 import {render, screen} from "@testing-library/react";
-import CarouselSlide from "./CarouselSlide";
+import CarouselSlide, {ScaledImg} from "./CarouselSlide";
 import {expect} from "vitest";
+import styled from "styled-components";
 
 describe('CarouselSlide()', () => {
   it('renders a <figure>', () => {
@@ -66,6 +67,19 @@ describe('CarouselSlide()', () => {
     const img = screen.getByRole('img')
 
     expect(img).toHaveStyleRule('height', '123px')
+  })
 
+  it('allows styles to be overridden with `ImgComponent`', () => {
+    const TestImg = styled(ScaledImg)`
+        width: auto;
+        object-fit: fill;
+    `as typeof ScaledImg
+
+    render(<CarouselSlide ImgComponent={TestImg} imgHeight={250} />)
+    const img = screen.getByRole('img')
+
+    expect(img).toHaveStyleRule('width', 'auto')
+    expect(img).toHaveStyleRule('height', '250px')
+    expect(img).toHaveStyleRule('object-fit', 'fill')
   })
 })
