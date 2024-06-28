@@ -1,24 +1,8 @@
 import {render, screen} from "@testing-library/react";
 import CarouselSlide, {ScaledImg} from "./CarouselSlide";
-import {expect} from "vitest";
 import styled from "styled-components";
 
 describe('CarouselSlide()', () => {
-  it('renders a <figure>', () => {
-    render(<CarouselSlide />);
-    expect(screen.getByRole('figure')).toBeInTheDocument()
-  })
-
-  it('renders an <img> and a <figcaption>', () => {
-    render(<CarouselSlide />)
-    const figure = screen.getByRole('figure')
-    const img = screen.getByRole('img')
-    const figCaption = screen.getByTestId('caption')
-
-    expect(figure).toContainElement(img)
-    expect(figure).toContainElement(figCaption)
-  })
-
   it('passes `imgUrl` through the <img>', () => {
     const imgUrl = 'https://example.com/img.png'
 
@@ -53,15 +37,6 @@ describe('CarouselSlide()', () => {
     expect(figure).toHaveAttribute('data-test-name', 'My Slide')
   })
 
-  it('has the expected static styles', () => {
-    render(<CarouselSlide />)
-    const img = screen.getByRole('img')
-
-    expect(img).toHaveStyleRule('object-fit', 'cover')
-    expect(img).toHaveStyleRule('width', '100%')
-    expect(img).toHaveStyleRule('height', '500px')
-  })
-
   it('uses `imgHeight` for the height of the <img>', () => {
     render(<CarouselSlide imgHeight='123px' />)
     const img = screen.getByRole('img')
@@ -81,5 +56,10 @@ describe('CarouselSlide()', () => {
     expect(img).toHaveStyleRule('width', 'auto')
     expect(img).toHaveStyleRule('height', '250px')
     expect(img).toHaveStyleRule('object-fit', 'fill')
+  })
+
+  it('matches snapshot', () => {
+    render(<CarouselSlide />)
+    expect(screen.getByRole('figure')).toMatchSnapshot()
   })
 })

@@ -6,7 +6,7 @@ const DEFAULT_IMG_HEIGHT = "500px"
 export type CarouselSlideProps = {
   ImgComponent?: (
     props: ComponentPropsWithRef<'img'> & ImgComponentProps
-  ) => JSX.Element
+  ) => ReactNode
   imgUrl?: string
   /** @default "500px" */
   imgHeight?: string | number
