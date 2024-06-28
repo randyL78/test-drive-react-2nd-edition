@@ -51,4 +51,21 @@ describe('CarouselSlide()', () => {
     expect(figure).toHaveClass(props.className)
     expect(figure).toHaveAttribute('data-test-name', 'My Slide')
   })
+
+  it('has the expected static styles', () => {
+    render(<CarouselSlide />)
+    const img = screen.getByRole('img')
+
+    expect(img).toHaveStyleRule('object-fit', 'cover')
+    expect(img).toHaveStyleRule('width', '100%')
+    expect(img).toHaveStyleRule('height', '500px')
+  })
+
+  it('uses `imgHeight` for the height of the <img>', () => {
+    render(<CarouselSlide imgHeight='123px' />)
+    const img = screen.getByRole('img')
+
+    expect(img).toHaveStyleRule('height', '123px')
+
+  })
 })
