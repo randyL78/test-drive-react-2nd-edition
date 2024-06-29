@@ -5,18 +5,20 @@ import {useSlideIndex} from "./useSlideIndex.tsx";
 
 export type CarouselProps = {
   slides?: Slide[]
+  slideIndex?: number
+  onSlideIndexChange?: (index: number) => void
   DefaultImgComponent?: CarouselSlideProps['ImgComponent']
   defaultImgHeight?: CarouselSlideProps['imgHeight']
 }
 
-const Carousel = ({ slides, DefaultImgComponent, defaultImgHeight }: CarouselProps) => {
-  const [slideIndex, decrementSlideIndex, incrementSlideIndex] = useSlideIndex(slides);
+const Carousel = ({ slides, slideIndex: slideIndexProp, DefaultImgComponent, onSlideIndexChange, defaultImgHeight }: CarouselProps) => {
+  const [defaultSlideIndex, decrementSlideIndex, incrementSlideIndex] = useSlideIndex(slides, slideIndexProp, onSlideIndexChange);
 
   return (
     <div data-testid="carousel" >
       <CarouselSlide
         ImgComponent={DefaultImgComponent}
-        {...slides?.[slideIndex]}
+        {...slides?.[defaultSlideIndex]}
         imgHeight={defaultImgHeight}
       />
       {(slides?.length || 0) > 1 && (
