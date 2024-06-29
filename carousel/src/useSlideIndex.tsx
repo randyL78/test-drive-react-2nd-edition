@@ -27,7 +27,7 @@ export const useSlideIndex = (
     if(!slides?.length) return
 
     setSlideIndexState(increment(slides.length))
-    onSlideIndexChange?.(increment(slides.length)(slideIndex))
+    onSlideIndexChangeRef.current?.(increment(slides.length)(slideIndex))
   }, [slides?.length, slideIndex])
 
   useTimeout(autoAdvanceInterval, incrementSlideIndex)

@@ -134,7 +134,7 @@ describe('Carousel', () => {
     it('calls onSlideIndexChange when `Next` is clicked', async () => {
       renderCarouselWithSlideIndex()
       const img = screen.getByRole('img')
-      const nextButton = screen.queryByTestId('next-button')
+      const nextButton = screen.queryByTestId('next-button')!
       const user = userEvent.setup()
 
       await user.click(nextButton)
@@ -146,7 +146,7 @@ describe('Carousel', () => {
     it('calls onSlideIndexChange when `Prev` is clicked', async () => {
       renderCarouselWithSlideIndex()
       const img = screen.getByRole('img')
-      const prevButton = screen.queryByTestId('prev-button')
+      const prevButton = screen.queryByTestId('prev-button')!
       const user = userEvent.setup()
 
       await user.click(prevButton)
