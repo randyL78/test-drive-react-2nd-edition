@@ -4,6 +4,7 @@ import CarouselButton from './CarouselButton'
 import {useSlideIndex} from "./useSlideIndex.tsx";
 
 export type CarouselProps = {
+  autoAdvanceInterval?: number
   slides?: Slide[]
   slideIndex?: number
   onSlideIndexChange?: (index: number) => void
@@ -11,8 +12,8 @@ export type CarouselProps = {
   defaultImgHeight?: CarouselSlideProps['imgHeight']
 }
 
-const Carousel = ({ slides, slideIndex: slideIndexProp, DefaultImgComponent, onSlideIndexChange, defaultImgHeight }: CarouselProps) => {
-  const [defaultSlideIndex, decrementSlideIndex, incrementSlideIndex] = useSlideIndex(slides, slideIndexProp, onSlideIndexChange);
+const Carousel = ({ autoAdvanceInterval, slides, slideIndex: slideIndexProp, DefaultImgComponent, onSlideIndexChange, defaultImgHeight }: CarouselProps) => {
+  const [defaultSlideIndex, decrementSlideIndex, incrementSlideIndex] = useSlideIndex(slides, slideIndexProp, onSlideIndexChange, autoAdvanceInterval);
 
   return (
     <div data-testid="carousel" >

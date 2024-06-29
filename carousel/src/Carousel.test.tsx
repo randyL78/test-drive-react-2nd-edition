@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import Carousel from "./Carousel";
 import {beforeEach, expect} from "vitest";
 import userEvent from "@testing-library/user-event";
@@ -153,6 +153,22 @@ describe('Carousel', () => {
 
       expect(img).toHaveAttribute('src', slides[1].imgUrl)
       expect(onSlideIndexChange).toHaveBeenCalledWith(2)
+    })
+  });
+
+  describe('with auto advance', () => {
+    it('advances the  slide according to autoAdvanceInterval', () => {
+      const autoAdvanceInterval = 5000
+      render(
+        <Carousel slides={slides} autoAdvanceInterval={autoAdvanceInterval} />
+      )
+      const img = screen.getByRole('img')
+
+      act(() => {
+        vi.advanceTimersByTime(autoAdvanceInterval)
+      })
+
+      expect(img).toHaveAttribute('src', slides[1].imgUrl)
     })
   });
 });
