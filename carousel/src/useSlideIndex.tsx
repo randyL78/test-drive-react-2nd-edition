@@ -1,5 +1,5 @@
-import {useState} from 'react'
-import {useTimeout} from "./useTimeout.tsx";
+import {useCallback, useRef, useState} from 'react'
+import {useTimeout} from "./useTimeout";
 
 const increment = (length: number) => (i: number) => (i + 1) % length
 const decrement = (length: number) => (i: number) => (i + length - 1) % length
@@ -11,6 +11,8 @@ export const useSlideIndex = (
   autoAdvanceInterval?: number
 ) => {
   const [slideIndexState, setSlideIndexState] = useState<number>(0)
+  const onSlideIndexChangeRef = useRef(onSlideIndexChange)
+  onSlideIndexChangeRef.current = onSlideIndexChange
 
   const slideIndex = slideIndexProp ?? slideIndexState
 
@@ -21,12 +23,12 @@ export const useSlideIndex = (
     onSlideIndexChange?.(decrement(slides.length)(slideIndex))
   }
 
-  const incrementSlideIndex = () => {
-    if(!slides) return
+  const incrementSlideIndex = useCallback(() => {
+    if(!slides?.length) return
 
     setSlideIndexState(increment(slides.length))
     onSlideIndexChange?.(increment(slides.length)(slideIndex))
-  }
+  }, [slides?.length, slideIndex])
 
   useTimeout(autoAdvanceInterval, incrementSlideIndex)
 
