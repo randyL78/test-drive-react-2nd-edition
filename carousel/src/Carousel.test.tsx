@@ -1,6 +1,6 @@
 import {render, screen} from "@testing-library/react";
 import Carousel from "./Carousel";
-import {expect} from "vitest";
+import {beforeEach, expect} from "vitest";
 import userEvent from "@testing-library/user-event";
 
 describe('Carousel', () => {
@@ -108,4 +108,53 @@ describe('Carousel', () => {
 
     expect(img).toHaveStyleRule('height', '1234px')
   })
+
+  describe('with controlled slideIndex', () => {
+    const onSlideIndexChange = vi.fn()
+    const renderCarouselWithSlideIndex = () => {
+      render(
+        <Carousel
+            slides={slides}
+            slideIndex={1}
+            onSlideIndexChange={onSlideIndexChange}
+          />
+      )
+    }
+    beforeEach(() => {
+      onSlideIndexChange.mockReset
+    })
+
+    it('shows the slide corresponding to slideIndex', () => {
+      renderCarouselWithSlideIndex()
+      const img = screen.getByRole('img')
+
+      expect(img).toHaveAttribute('src', slides[1].imgUrl)
+    });
+
+    it('calls onSlideIndexChange when `Next` is clicked', async () => {
+      renderCarouselWithSlideIndex()
+      const img = screen.getByRole('img')
+      const nextButton = screen.queryByTestId('next-button')
+      const user = userEvent.setup()
+
+      await user.click(nextButton)
+
+      expect(img).toHaveAttribute('src', slides[1].imgUrl)
+      expect(onSlideIndexChange).toHaveBeenCalledWith(2)
+    })
+
+    it('calls onSlideIndexChange when `Prev` is clicked', async () => {
+      renderCarouselWithSlideIndex()
+      const img = screen.getByRole('img')
+      const prevButton = screen.queryByTestId('prev-button')
+      const user = userEvent.setup()
+
+      await user.click(prevButton)
+
+      expect(img).toHaveAttribute('src', slides[1].imgUrl)
+      expect(onSlideIndexChange).toHaveBeenCalledWith(2)
+    })
+  });
 });
+
+
