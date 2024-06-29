@@ -6,3 +6,7 @@ node_js:
 before_script:
   - cd carousel
   - npm install
+
+script:
+  - npm run lint
+  - npm run build
